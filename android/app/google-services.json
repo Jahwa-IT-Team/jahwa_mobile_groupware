@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873599351312",
+    "project_id": "jahwa-mobile-working-center",
+    "storage_bucket": "jahwa-mobile-working-center.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873599351312:android:c1795215aa37ce3065e895",
+        "android_client_info": {
+          "package_name": "kr.co.jahwa.jahwa_mobile_working_center"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873599351312-q2pevormupdmif3ijq66j0dlqumgsgnn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI17Z08KAZYFkOgVDKLp31cMen7FA9eLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873599351312-q2pevormupdmif3ijq66j0dlqumgsgnn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
