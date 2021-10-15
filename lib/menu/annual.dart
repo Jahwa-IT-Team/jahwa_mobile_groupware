@@ -436,6 +436,8 @@ class _AnnualWidgetState extends State<AnnualApp> {
                     context: context,
                     removeTop: true,
                     child: ListView(
+                      primary: false,
+                      shrinkWrap: true,
                       children: ListTile.divideTiles(
                         context: context,
                         tiles: cardList,

@@ -411,6 +411,8 @@ class _AttendWidgetState extends State<AttendApp> {
                     context: context,
                     removeTop: true,
                     child: ListView(
+                      primary: false,
+                      shrinkWrap: true,
                       children: ListTile.divideTiles(
                         context: context,
                         tiles: breakList,
@@ -462,6 +464,8 @@ class _AttendWidgetState extends State<AttendApp> {
                     context: context,
                     removeTop: true,
                     child: ListView(
+                      primary: false,
+                      shrinkWrap: true,
                       children: ListTile.divideTiles(
                         context: context,
                         tiles: modifyList,

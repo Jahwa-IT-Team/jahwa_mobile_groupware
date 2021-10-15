@@ -358,6 +358,8 @@ class _PayWidgetState extends State<PayApp> {
                             context: context,
                             removeTop: true,
                             child: ListView(
+                              primary: false,
+                              shrinkWrap: true,
                               children: ListTile.divideTiles(
                                 context: context,
                                 tiles: payList,
@@ -409,6 +411,8 @@ class _PayWidgetState extends State<PayApp> {
                             context: context,
                             removeTop: true,
                             child: ListView(
+                              primary: false,
+                              shrinkWrap: true,
                               children: ListTile.divideTiles(
                                 context: context,
                                 tiles: subList,
@@ -677,6 +681,8 @@ class _PayWidgetState extends State<PayApp> {
                           context: context,
                           removeTop: true,
                           child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: payList,
@@ -728,6 +734,8 @@ class _PayWidgetState extends State<PayApp> {
                           context: context,
                           removeTop: true,
                           child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: subList,
@@ -1029,6 +1037,8 @@ class _PayWidgetState extends State<PayApp> {
                           context: context,
                           removeTop: true,
                           child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: foreign_payList,
@@ -1080,6 +1090,8 @@ class _PayWidgetState extends State<PayApp> {
                           context: context,
                           removeTop: true,
                           child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: foreign_subList,
