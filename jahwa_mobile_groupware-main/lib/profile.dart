@@ -99,7 +99,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
                       ],
                     )
                 ),
-                Container( 
+                Container(
                   width: screenWidth,
                   height: (screenHeight - statusBarHeight) * 0.9,
                   margin: EdgeInsets.all(10),
