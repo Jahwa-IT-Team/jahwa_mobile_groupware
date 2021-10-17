@@ -27,6 +27,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
   var hand_tel_no = "";
   var email_addr = "";
   var addr = "";
+  var photo = "NONE.jpg";
 
   bool _isLoading = true;
 
@@ -127,7 +128,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
                             border: Border.all(color:Colors.white, width: 2, style: BorderStyle.solid,),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage('https://gw.jahwa.co.kr/Photo/' + session['Photo'],)),
+                                image: NetworkImage('https://gw.jahwa.co.kr/Photo/' + '${photo}')),
                             borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                         ),
@@ -337,6 +338,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
               hand_tel_no = element["HAND_TEL_NO"].toString();
               email_addr = element["EMAIL_ADDR"].toString();
               addr = element["ADDR"].toString();
+              photo = element["Photo"].toString();
             });
             await pr.hide();
 
