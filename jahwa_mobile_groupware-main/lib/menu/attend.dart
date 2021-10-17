@@ -342,7 +342,7 @@ class _AttendWidgetState extends State<AttendApp> {
                                     ),
                                   ],
                                 ),
-                                child: Column(
+                                child: Column( 
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.all(6),

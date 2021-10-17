@@ -304,7 +304,7 @@ class _HomeWidgetState extends State<HomeApp> {
                                  color: Color.fromARGB(0xFF, 0xEA, 0x86, 0x2B),
                                  borderRadius: BorderRadius.circular(10), //border corner radius
                                  boxShadow:[
-                                   BoxShadow(
+                                   BoxShadow( 
                                      color: Colors.grey.withOpacity(0.2), //color of shadow
                                      spreadRadius: 5, //spread radius
                                      blurRadius: 7, // blur radius
