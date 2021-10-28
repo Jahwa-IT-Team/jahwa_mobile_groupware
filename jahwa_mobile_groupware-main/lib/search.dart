@@ -85,7 +85,8 @@ class _SearchWidgetState extends State<SearchApp> {
                 SizedBox( height: statusBarHeight, ), /// Status Bar
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.15,
+                    height: (screenHeight - statusBarHeight) * 0.13,
+                    alignment: Alignment.centerLeft,
                     color: Colors.blue,
                     child: Column(
                       children: <Widget>[
@@ -233,6 +234,7 @@ class _SearchWidgetState extends State<SearchApp> {
                         children: <Widget>[
                           Container(
                             alignment: Alignment.topLeft,
+                            margin: EdgeInsets.all(3),
                             child: Text(
                               '${element["CO_FULL_NM"].toString()}',
                               style: TextStyle(fontSize: 15),
@@ -240,6 +242,7 @@ class _SearchWidgetState extends State<SearchApp> {
                           ),
                           Container(
                             alignment: Alignment.topLeft,
+                            margin: EdgeInsets.all(3),
                             child: Text(
                               '${element["DEPT_NM"].toString()} ${element["NAME"].toString()} ${element["ROLL_PSTN"].toString()}',
                               style: TextStyle(fontSize: 15),
@@ -247,6 +250,7 @@ class _SearchWidgetState extends State<SearchApp> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
+                              margin: EdgeInsets.all(3),
                               child: Row(
                                 children: <Widget>[
                                   Icon(Icons.call, color: Colors.blue),
@@ -268,6 +272,7 @@ class _SearchWidgetState extends State<SearchApp> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
+                              margin: EdgeInsets.all(3),
                               child: Row(
                                 children: <Widget>[
                                   Icon(Icons.phone_android, color: Colors.blue),
@@ -289,6 +294,7 @@ class _SearchWidgetState extends State<SearchApp> {
                           ),
                           Container(
                             alignment: Alignment.topLeft,
+                              margin: EdgeInsets.all(3),
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.mail, color: Colors.blue),

@@ -86,7 +86,8 @@ class _AnnualWidgetState extends State<AnnualApp> {
                 SizedBox( height: statusBarHeight, ), /// Status Bar
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.15,
+                    height: (screenHeight - statusBarHeight) * 0.13,
+                    alignment: Alignment.centerLeft,
                     color: Colors.blue,
                     child: Column(
                       children: <Widget>[
@@ -482,7 +483,7 @@ class _AnnualWidgetState extends State<AnnualApp> {
                 child: Row(
                   children: <Widget> [
                     Container(
-                      width: screenWidth * 0.2,
+                      width: screenWidth * 0.25,
                       height: (screenHeight - statusBarHeight) * 0.05,
                       alignment: Alignment.center,
                       child: Text(
@@ -500,7 +501,7 @@ class _AnnualWidgetState extends State<AnnualApp> {
                       ),
                     ),
                     Container(
-                      width: screenWidth * 0.2,
+                      width: screenWidth * 0.15,
                       height: (screenHeight - statusBarHeight) * 0.05,
                       alignment: Alignment.center,
                       child: Text(

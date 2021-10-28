@@ -106,7 +106,8 @@ class _AttendWidgetState extends State<AttendApp> {
                 SizedBox( height: statusBarHeight, ), /// Status Bar
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.15,
+                    height: (screenHeight - statusBarHeight) * 0.13,
+                    alignment: Alignment.centerLeft,
                     color: Colors.blue,
                     child: Column(
                       children: <Widget>[
@@ -178,7 +179,7 @@ class _AttendWidgetState extends State<AttendApp> {
                 ),
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.35,
+                    height: (screenHeight - statusBarHeight) * 0.3,
                     margin: EdgeInsets.all(10),
                     alignment: Alignment.topLeft,
                     decoration: BoxDecoration(
@@ -244,7 +245,7 @@ class _AttendWidgetState extends State<AttendApp> {
                         ),
                         Container(
                           width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.2,
+                          height: (screenHeight - statusBarHeight) * 0.15,
                           alignment: Alignment.topCenter,
                           margin: EdgeInsets.all(7),
                           child: Row(
@@ -286,7 +287,7 @@ class _AttendWidgetState extends State<AttendApp> {
                               ),
                               Container(
                                 width: screenWidth * 0.27,
-                                height: (screenHeight - statusBarHeight) * 0.2,
+                                height: (screenHeight - statusBarHeight) * 0.15,
                                 margin: EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(0xFF, 0x17, 0xB7, 0x57),
@@ -328,7 +329,7 @@ class _AttendWidgetState extends State<AttendApp> {
                               ),
                               Container(
                                 width: screenWidth * 0.27,
-                                height: (screenHeight - statusBarHeight) * 0.2,
+                                height: (screenHeight - statusBarHeight) * 0.15,
                                 margin: EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(0xFF, 0xEA, 0x86, 0x2B),

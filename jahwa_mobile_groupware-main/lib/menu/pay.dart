@@ -123,7 +123,8 @@ class _PayWidgetState extends State<PayApp> {
                 SizedBox( height: statusBarHeight, ), /// Status Bar
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.15,
+                    height: (screenHeight - statusBarHeight) * 0.13,
+                    alignment: Alignment.centerLeft,
                     color: Colors.blue,
                     child: Column(
                       children: <Widget>[

@@ -8,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jahwa_mobile_groupware/util/common.dart';
 import 'package:jahwa_mobile_groupware/util/globals.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 import 'package:http/http.dart' as http;
 
 ProgressDialog pr; /// 0. Progress Dialog Declaration
@@ -85,7 +87,8 @@ class _ProfileWidgetState extends State<ProfileApp> {
                 SizedBox( height: statusBarHeight, ), /// Status Bar
                 Container(
                     width: screenWidth,
-                    height: (screenHeight - statusBarHeight) * 0.15,
+                    height: (screenHeight - statusBarHeight) * 0.13,
+                    alignment: Alignment.centerLeft,
                     color: Colors.blue,
                     child: Column(
                       children: <Widget>[
@@ -168,25 +171,32 @@ class _ProfileWidgetState extends State<ProfileApp> {
                               SizedBox(width: screenWidth * 0.02,),
                               Icon(Icons.call, color: Colors.blue),
                               SizedBox(width: screenWidth * 0.03,),
-                              Container(
-                                width: screenWidth * 0.8,
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10), //border corner radius
-                                  boxShadow:[
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.2), //color of shadow
-                                      spreadRadius: 5, //spread radius
-                                      blurRadius: 7, // blur radius
-                                      offset: Offset(0, 2), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  ' ${em_tel_no}',
-                                  style: TextStyle(fontSize: 16, color: Colors.white),
+                              GestureDetector(
+                                onTap: (){
+                                  print("Container clicked1");
+                                  launch("tel://${em_tel_no.toString().replaceAll('-', '')}");
+                                },
+                                child: new Container(
+                                  width: screenWidth * 0.8,
+                                  height: (screenHeight - statusBarHeight) * 0.04,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(10), //border corner radius
+                                    boxShadow:[
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.2), //color of shadow
+                                        spreadRadius: 5, //spread radius
+                                        blurRadius: 7, // blur radius
+                                        offset: Offset(0, 2), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    ' ${em_tel_no}',
+                                    style: TextStyle(fontSize: 16, color: Colors.white),
+                                  ),
                                 ),
                               )
                             ],
@@ -199,26 +209,33 @@ class _ProfileWidgetState extends State<ProfileApp> {
                               SizedBox(width: screenWidth * 0.02,),
                               Icon(Icons.phone_android, color: Colors.blue),
                               SizedBox(width: screenWidth * 0.03,),
-                              Container(
-                                width: screenWidth * 0.8,
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10), //border corner radius
-                                  boxShadow:[
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.2), //color of shadow
-                                      spreadRadius: 5, //spread radius
-                                      blurRadius: 7, // blur radius
-                                      offset: Offset(0, 2), // changes position of shadow
+                              GestureDetector(
+                                  onTap: (){
+                                    print("Container clicked2");
+                                    launch("tel://${hand_tel_no.toString().replaceAll('-', '')}");
+                                  },
+                                  child: new Container(
+                                    width: screenWidth * 0.8,
+                                    height: (screenHeight - statusBarHeight) * 0.04,
+                                    alignment: Alignment.centerLeft,
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10), //border corner radius
+                                      boxShadow:[
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2), //color of shadow
+                                          spreadRadius: 5, //spread radius
+                                          blurRadius: 7, // blur radius
+                                          offset: Offset(0, 2), // changes position of shadow
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: Text(
-                                  ' ${hand_tel_no}',
-                                  style: TextStyle(fontSize: 16, color: Colors.white),
-                                ),
+                                    child: Text(
+                                      ' ${hand_tel_no}',
+                                      style: TextStyle(fontSize: 16, color: Colors.white),
+                                    ),
+                                  ),
                               )
                             ],
                           ),
@@ -232,6 +249,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
                               SizedBox(width: screenWidth * 0.03,),
                               Container(
                                 width: screenWidth * 0.8,
+                                height: (screenHeight - statusBarHeight) * 0.04,
                                 alignment: Alignment.centerLeft,
                                 padding: EdgeInsets.all(5),
                                 decoration: BoxDecoration(
@@ -285,6 +303,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
                             ],
                           ),
                         ),
+                        SizedBox(height: screenWidth * 0.02,),
                         Container( /// Search Button
                           width: (screenWidth-40) * 0.3,
                           child: ButtonTheme(

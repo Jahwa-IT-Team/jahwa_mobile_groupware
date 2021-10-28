@@ -94,9 +94,9 @@ class _HomeWidgetState extends State<HomeApp> {
                  SizedBox( height: statusBarHeight, ), /// Status Bar
                  Container(
                    width: screenWidth,
-                   height: (screenHeight - statusBarHeight) * 0.15,
+                   height: (screenHeight - statusBarHeight) * 0.13,
+                   alignment: Alignment.centerLeft,
                    color: Colors.blue,
-
                    child: Column(
                      children: <Widget>[
                        SizedBox( height: (screenHeight - statusBarHeight) * 0.03, ),
@@ -140,6 +140,7 @@ class _HomeWidgetState extends State<HomeApp> {
                          height: (screenHeight - statusBarHeight) * 0.05,
                          width: screenWidth,
                          padding: EdgeInsets.all(5),
+                         alignment: Alignment.centerLeft,
                          decoration: BoxDecoration(
                            color: Colors.green,
                            borderRadius: BorderRadius.only(
@@ -171,7 +172,7 @@ class _HomeWidgetState extends State<HomeApp> {
                  ),
                  Container(
                    width: screenWidth,
-                   height: (screenHeight - statusBarHeight) * 0.35,
+                   height: (screenHeight - statusBarHeight) * 0.3,
                    margin: EdgeInsets.all(10),
                    alignment: Alignment.topLeft,
                    decoration: BoxDecoration(
@@ -192,6 +193,7 @@ class _HomeWidgetState extends State<HomeApp> {
                          height: (screenHeight - statusBarHeight) * 0.05,
                          width: screenWidth,
                          padding: EdgeInsets.all(5),
+                         alignment: Alignment.centerLeft,
                          decoration: BoxDecoration(
                            color: Colors.blue,
                            borderRadius: BorderRadius.only(
@@ -214,14 +216,14 @@ class _HomeWidgetState extends State<HomeApp> {
                        ),
                        Container(
                          width: screenWidth,
-                         height: (screenHeight - statusBarHeight) * 0.2,
+                         height: (screenHeight - statusBarHeight) * 0.15,
                          alignment: Alignment.topCenter,
                          margin: EdgeInsets.all(7),
                          child: Row(
                            children: <Widget>[
                              Container(
                                width: screenWidth * 0.27,
-                               height: (screenHeight - statusBarHeight) * 0.2,
+                               height: (screenHeight - statusBarHeight) * 0.15,
                                margin: EdgeInsets.all(6),
                                decoration: BoxDecoration(
                                  color: Color.fromARGB(0xFF, 0x59, 0xA0, 0xE2),
@@ -256,7 +258,7 @@ class _HomeWidgetState extends State<HomeApp> {
                              ),
                              Container(
                                width: screenWidth * 0.27,
-                               height: (screenHeight - statusBarHeight) * 0.2,
+                               height: (screenHeight - statusBarHeight) * 0.15,
                                margin: EdgeInsets.all(6),
                                decoration: BoxDecoration(
                                  color: Color.fromARGB(0xFF, 0x17, 0xB7, 0x57),
@@ -298,7 +300,7 @@ class _HomeWidgetState extends State<HomeApp> {
                              ),
                              Container(
                                width: screenWidth * 0.27,
-                               height: (screenHeight - statusBarHeight) * 0.2,
+                               height: (screenHeight - statusBarHeight) * 0.15,
                                margin: EdgeInsets.all(5),
                                decoration: BoxDecoration(
                                  color: Color.fromARGB(0xFF, 0xEA, 0x86, 0x2B),
@@ -360,6 +362,7 @@ class _HomeWidgetState extends State<HomeApp> {
                          height: (screenHeight - statusBarHeight) * 0.05,
                          width: screenWidth,
                          padding: EdgeInsets.all(5),
+                         alignment: Alignment.centerLeft,
                          decoration: BoxDecoration(
                            color: Colors.teal,
                            borderRadius: BorderRadius.only(
@@ -592,7 +595,7 @@ class _HomeWidgetState extends State<HomeApp> {
                     children: <Widget> [
                       Container(
                         width: screenWidth * 0.9,
-                        height: (screenHeight - statusBarHeight) * 0.025,
+                        ///height: (screenHeight - statusBarHeight) * 0.025,
                         margin: EdgeInsets.all(3),
                         alignment: Alignment.centerLeft,
                         child: Text(
