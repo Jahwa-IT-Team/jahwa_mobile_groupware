@@ -160,6 +160,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
+  flutter_email_sender:
+    dependency: "direct main"
+    description:
+      name: flutter_email_sender
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   flutter_html:
     dependency: "direct main"
     description:
@@ -244,7 +251,7 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.1.0"
+    version: "9.2.0"
   html:
     dependency: transitive
     description:
@@ -475,7 +482,7 @@ packages:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.4"
+    version: "3.3.5"
   process:
     dependency: transitive
     description:
@@ -606,21 +613,21 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.3.45+1"
+    version: "19.3.47"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.3.45"
+    version: "19.3.47"
   syncfusion_flutter_datagrid:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datagrid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.3.45"
+    version: "19.3.47"
   term_glyph:
     dependency: transitive
     description:
@@ -781,7 +788,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.9"
+    version: "2.2.10"
   xdg_directories:
     dependency: transitive
     description:

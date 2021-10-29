@@ -567,7 +567,7 @@ class _HomeWidgetState extends State<HomeApp> {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
           if(jsonDecode(response.body)['Table1'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
           }
           else {
             await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
@@ -582,7 +582,7 @@ class _HomeWidgetState extends State<HomeApp> {
             await pr.hide();
           }
           if(jsonDecode(response.body)['Table7'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
             cardList0.clear();
           }
           else {
@@ -613,7 +613,7 @@ class _HomeWidgetState extends State<HomeApp> {
             await pr.hide();
           }
           if(jsonDecode(response.body)['Table19'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
           }
           else {
             await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style

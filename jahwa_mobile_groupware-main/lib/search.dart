@@ -14,6 +14,7 @@ import 'package:jahwa_mobile_groupware/util/globals.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/link.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'dart:async';
 
 ProgressDialog pr; /// 0. Progress Dialog Declaration
@@ -293,24 +294,29 @@ class _SearchWidgetState extends State<SearchApp> {
                               )
                           ),
                           Container(
-                            alignment: Alignment.topLeft,
+                              alignment: Alignment.topLeft,
                               margin: EdgeInsets.all(3),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(Icons.mail, color: Colors.blue),
-                                SizedBox(width: screenWidth * 0.01,),
-                                Container(
-                                  child: Text(
-                                    '${element["EMAIL_ADDR"].toString()}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                )
-                              ],
-                            )
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.phone_android, color: Colors.blue),
+                                  SizedBox(width: screenWidth * 0.01,),
+                                  GestureDetector(
+                                      onTap: (){
+                                        print("Container clicked3");
+                                        _sendEmail('${element["EMAIL_ADDR"].toString()}');
+                                      },
+                                      child: new Container(
+                                        child: Text(
+                                          '${element["EMAIL_ADDR"].toString()}',
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      )
+                                  )
+                                ],
+                              )
                           ),
                         ],
                       )
-
                     ),
                   ],
                 ),
@@ -329,5 +335,23 @@ class _SearchWidgetState extends State<SearchApp> {
       showMessageBox(context, 'Alert', 'Preference Setting Error A : ' + e.toString());
     }
   }
+  Future<void> _sendEmail(var email_val) async {
+    final Email email = Email(
+      body: '',
+      subject: '',
+      recipients: [email_val],
+      cc: [],
+      bcc: [],
+      attachmentPaths: [],
+      isHTML: false,
+    );
 
+    try {
+      await FlutterEmailSender.send(email);
+    } catch (error) {
+      String title = "기본 메일 앱을 사용할 수 없기 때문에 앱에서 바로 메일을 전송하기 어려운 상황입니다.";
+      String message = "";
+      showMessageBox(context, 'Alert', title);
+    }
+  }
 }

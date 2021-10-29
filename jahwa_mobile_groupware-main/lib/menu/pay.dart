@@ -1399,7 +1399,7 @@ class _PayWidgetState extends State<PayApp> {
         else if(response.statusCode == 200){
           _valueList.clear();
           if(jsonDecode(response.body)['Table'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
           }
           else {
             await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
@@ -1433,7 +1433,7 @@ class _PayWidgetState extends State<PayApp> {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
           if(jsonDecode(response.body)['Table'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
             payList.clear();
           }
           else {
@@ -1448,7 +1448,7 @@ class _PayWidgetState extends State<PayApp> {
            pay_count = 0;
           ///지급내역
           if(jsonDecode(response.body)['Table1'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
             payList.clear();
           }
           else {
@@ -1516,7 +1516,7 @@ class _PayWidgetState extends State<PayApp> {
           sub_count = 0;
           ///공제내역
           if(jsonDecode(response.body)['Table2'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
             subList.clear();
           }
           else {
@@ -1584,7 +1584,7 @@ class _PayWidgetState extends State<PayApp> {
 
           ///총 계산내역
           if(jsonDecode(response.body)['Table3'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
           }
           else {
             await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style

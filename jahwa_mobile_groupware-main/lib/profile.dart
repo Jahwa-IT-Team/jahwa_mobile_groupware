@@ -342,7 +342,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
           if(jsonDecode(response.body)['Table'].length == 0) {
-            showMessageBox(context, 'Alert', 'Data does not Exists!!!');
+
           }
           else {
             await pr.show();
