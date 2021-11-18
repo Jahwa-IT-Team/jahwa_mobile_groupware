@@ -28,7 +28,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     controller = TabController(length: 4, vsync: this);
     NewVersion(
       ///iOSId: 'kr.co.jahwa.jahwa_mobile_working_center',
-      androidId: 'kr.co.jahwa.jahwa_mobile_working_center',
+      androidId: 'kr.co.jahwa.jahwa_M',
     ).showAlertIfNecessary(context: context);
 
     print("open Index Page : " + DateTime.now().toString());

@@ -258,11 +258,11 @@ Future<void> showNotification(var title, var content) async {
 
 /// Notification 클릭시 해당 프로그램의 실행여부 판단하여 실행시킴
 Future selectNotification(String payload) async {
-  bool isInstalled = await DeviceApps.isAppInstalled('kr.co.jahwa.jahwa_mobile_working_center');
-  if (isInstalled != false) DeviceApps.openApp('kr.co.jahwa.jahwa_mobile_working_center');
+  bool isInstalled = await DeviceApps.isAppInstalled('kr.co.jahwa.jahwa_M');
+  if (isInstalled != false) DeviceApps.openApp('kr.co.jahwa.jahwa_M');
   else {
     StoreRedirect.redirect(
-        androidAppId: "kr.co.jahwa.jahwa_mobile_working_center"
+        androidAppId: "kr.co.jahwa.jahwa_M"
     );
     ///await showNotification('Alert', 'ERROR : Can not Open JH Mobile !!!');
   }
@@ -270,12 +270,12 @@ Future selectNotification(String payload) async {
 
 Future onDidReceiveLocalNotification(int id, String title, String body, String payload) async {
   bool isInstalled = await DeviceApps.isAppInstalled(
-      'kr.co.jahwa.jahwa_mobile_working_center');
+      'kr.co.jahwa.jahwa_M');
   if (isInstalled != false)
-    DeviceApps.openApp('kr.co.jahwa.jahwa_mobile_working_center');
+    DeviceApps.openApp('kr.co.jahwa.jahwa_M');
   else {
     StoreRedirect.redirect(
-        androidAppId: "kr.co.jahwa.jahwa_mobile_working_center"
+        androidAppId: "kr.co.jahwa.jahwa_M"
     );
     ///await showNotification('Alert', 'ERROR : Can not Open JH Mobile !!!');
   }
