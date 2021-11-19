@@ -1172,13 +1172,14 @@ class _AttendWidgetState extends State<AttendApp> {
           dilig_nm = "";
           break_time = "";
           work_type = "";
+          await pr.show();
 
           ///나의 근로시간
           if(jsonDecode(response.body)['Table'].length == 0) {
             ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table'].forEach((element) {
               start_time = element["STRT_TIME"].toString();
               if (element["EXP_END_TIME"].toString() != ''){
@@ -1193,7 +1194,7 @@ class _AttendWidgetState extends State<AttendApp> {
               dilig_nm = element["DILIG_NM"].toString();
               work_type = element["WORK_TYPE"].toString();
             });
-            await pr.hide();
+
           }
 
           ///공휴일
@@ -1201,11 +1202,11 @@ class _AttendWidgetState extends State<AttendApp> {
             ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table1'].forEach((element) {
               remark = element["Remark"].toString();
             });
-            await pr.hide();
+
           }
 
           break_count = 0;
@@ -1216,7 +1217,7 @@ class _AttendWidgetState extends State<AttendApp> {
             breakList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             breakList.clear();
 
             Widget card = Card(
@@ -1310,7 +1311,7 @@ class _AttendWidgetState extends State<AttendApp> {
               breakList.add(card);
               break_count++;
             });
-            await pr.hide();
+
           }
 
           ///출퇴근시간정정
@@ -1318,7 +1319,7 @@ class _AttendWidgetState extends State<AttendApp> {
             modifyList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             modifyList.clear();
 
             Widget card = Card(
@@ -1455,7 +1456,7 @@ class _AttendWidgetState extends State<AttendApp> {
             });
 
             modifyList.add(card);
-            await pr.hide();
+
           }
 
           work_type_nm = "";
@@ -1476,7 +1477,7 @@ class _AttendWidgetState extends State<AttendApp> {
               ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
             }
             else {
-              await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+              /// 3. Progress Dialog Show - Need Declaration, Setting, Style
               jsonDecode(response.body)['Table6'].forEach((element) {
                 work_type_nm = element["WORK_TYPE_NM"].toString();
                 dilig_strt_dt = element["DILIG_STRT_DT"].toString()+ "~";
@@ -1488,19 +1489,19 @@ class _AttendWidgetState extends State<AttendApp> {
                 select_remain_time = element["SELECT_REMAIN_TIME"].toString();
                 status = element["Status"].toString();
               });
-              await pr.hide();
+
             }
 
             if(jsonDecode(response.body)['Table7'].length == 0) {
               ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
             }
             else {
-              await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+              /// 3. Progress Dialog Show - Need Declaration, Setting, Style
               jsonDecode(response.body)['Table7'].forEach((element) {
                 strt_null = element["STRT_NULL"].toString();
                 end_null = element["END_NULL"].toString();
               });
-              await pr.hide();
+
             }
           }
           else{
@@ -1508,7 +1509,7 @@ class _AttendWidgetState extends State<AttendApp> {
               ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
             }
             else {
-              await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+              /// 3. Progress Dialog Show - Need Declaration, Setting, Style
               jsonDecode(response.body)['Table4'].forEach((element) {
                 work_type_nm = element["WORK_TYPE_NM"].toString();
                 dilig_strt_dt = element["DILIG_STRT_DT"].toString()+ "~";
@@ -1519,22 +1520,22 @@ class _AttendWidgetState extends State<AttendApp> {
                 remain_over_time = element["REMAIN_OVER_TIME"].toString();
                 status = element["Status"].toString();
               });
-              await pr.hide();
+
             }
 
             if(jsonDecode(response.body)['Table5'].length == 0) {
               ///showMessageBox(context, 'Alert', 'Data does not Exists!!!');
             }
             else {
-              await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+              /// 3. Progress Dialog Show - Need Declaration, Setting, Style
               jsonDecode(response.body)['Table5'].forEach((element) {
                 strt_null = element["STRT_NULL"].toString();
                 end_null = element["END_NULL"].toString();
               });
-              await pr.hide();
+
             }
           }
-
+          await pr.hide();
           setState(() {
           });
         }

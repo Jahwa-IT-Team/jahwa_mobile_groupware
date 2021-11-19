@@ -32,7 +32,7 @@ class _IndexState extends State<Index> with SingleTickerProviderStateMixin {
     ).showAlertIfNecessary(context: context);
 
     print("open Index Page : " + DateTime.now().toString());
-  }
+  }  
 
   @override
   Widget build(BuildContext context) {

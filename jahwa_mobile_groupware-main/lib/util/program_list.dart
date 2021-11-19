@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jahwa_mobile_groupware/bbsview.dart';
 
 import 'package:jahwa_mobile_groupware/check.dart';
 import 'package:jahwa_mobile_groupware/login.dart';
@@ -38,6 +39,8 @@ final routes = {
   '/Document' : (BuildContext context) => DocumentApp(), ///전자결재
   '/Pay' : (BuildContext context) => PayApp(), ///급여조회
   '/Annual' : (BuildContext context) => AnnualApp(), ///연차조회
+
+  '/BbsView' : (BuildContext context) => BbsViewApp(), ///게시물 조회
 
   /// Email
   '/EmailGW' : (BuildContext context) => EmailGW(),

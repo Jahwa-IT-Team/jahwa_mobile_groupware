@@ -87,3 +87,9 @@ var messagenum = "";
 /// 전자결재 문서형식 변수
 var GWType = "";
 var GWTypeNm = "";
+
+///게시판 변수
+var BbsCode = "";
+var BbsNum = "";
+var BbsTitle = "";
+var BbsContents = "";

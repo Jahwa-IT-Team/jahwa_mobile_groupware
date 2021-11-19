@@ -471,12 +471,13 @@ class _AnnualWidgetState extends State<AnnualApp> {
       return await http.post(Uri.parse(url), body: json.encode(data), headers: {"Content-Type": "application/json"}).timeout(const Duration(seconds: 30)).then<bool>((http.Response response) async {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
+          await pr.show();
           if(jsonDecode(response.body)['Table2'].length == 0) {
 
             cardList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             cardList.clear();
             jsonDecode(response.body)['Table2'].forEach((element) {
               Widget card = Card(
@@ -524,23 +525,23 @@ class _AnnualWidgetState extends State<AnnualApp> {
               cardList.add(card);
               year_use += element["DILIG_HH"];
             });
-            await pr.hide();
+
           }
 
           if(jsonDecode(response.body)['Table'].length == 0) {
 
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table'].forEach((element) {
               year_save = element["YEAR_SAVE"];
               year_part = element["YEAR_PART"];
               year_save_tot = element["YEAR_SAVE_TOT"];
               year_remain = year_save_tot - year_use / 8;
             });
-            await pr.hide();
-          }
 
+          }
+          await pr.hide();
           setState(() {
           });
         }

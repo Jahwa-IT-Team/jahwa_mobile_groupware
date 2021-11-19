@@ -298,7 +298,7 @@ class _SearchWidgetState extends State<SearchApp> {
                               margin: EdgeInsets.all(3),
                               child: Row(
                                 children: <Widget>[
-                                  Icon(Icons.phone_android, color: Colors.blue),
+                                  Icon(Icons.mail, color: Colors.blue),
                                   SizedBox(width: screenWidth * 0.01,),
                                   GestureDetector(
                                       onTap: (){

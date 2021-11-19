@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jahwa_mobile_groupware/util/common.dart';
 import 'package:jahwa_mobile_groupware/util/globals.dart';
+import 'package:jahwa_mobile_groupware/util/program_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -566,11 +567,12 @@ class _HomeWidgetState extends State<HomeApp> {
       return await http.post(Uri.parse(url), body: json.encode(data), headers: {"Content-Type": "application/json"}).timeout(const Duration(seconds: 30)).then<bool>((http.Response response) async {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
+          await pr.show();
           if(jsonDecode(response.body)['Table1'].length == 0) {
 
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+             /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table1'].forEach((element) {
               preApproval = '${element["PreApproval"].toString()}';
               unApproved = '${element["UnApproved"].toString()}';
@@ -579,17 +581,17 @@ class _HomeWidgetState extends State<HomeApp> {
               cooperation = '${element["Cooperation"].toString()}';
               deptReceived = '${element["DeptReceived"].toString()}';
             });
-            await pr.hide();
+
           }
           if(jsonDecode(response.body)['Table7'].length == 0) {
 
             cardList0.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             cardList0.clear();
             jsonDecode(response.body)['Table7'].forEach((element) {
-              if(count<5){
+              if(count<5 && element["Code"].toString() != "Special"){
                 Widget card = Card(
                   child: Row(
                     children: <Widget> [
@@ -598,10 +600,17 @@ class _HomeWidgetState extends State<HomeApp> {
                         ///height: (screenHeight - statusBarHeight) * 0.025,
                         margin: EdgeInsets.all(3),
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          '${element["Subject"].toString()}',
-                          style: TextStyle(fontSize: 13,color: Colors.black),
-                        ),
+                          child:GestureDetector(
+                            child: Text(
+                              '${element["Subject"].toString()}',
+                              style: TextStyle(fontSize: 13,color: Colors.black),
+                            ),
+                            onTap: () {
+                              BbsCode = element["Code"].toString();
+                              BbsNum = element["Num"].toString();
+                              Navigator.pushNamed(context, '/BbsView');
+                            },
+                          )
                       ),
                     ],
                   ),
@@ -610,13 +619,13 @@ class _HomeWidgetState extends State<HomeApp> {
                 count++;
               }
             });
-            await pr.hide();
+
           }
           if(jsonDecode(response.body)['Table19'].length == 0) {
 
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+             /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table19'].forEach((element) {
               work_type = '${element["WORK_TYPE_NM"].toString()}';
               start_time = '${element["STRT_TIME"].toString()}';
@@ -630,8 +639,9 @@ class _HomeWidgetState extends State<HomeApp> {
               }
               rest_time = '${element["BREAK_TIME"].toString()}';
             });
-            await pr.hide();
+
           }
+          await pr.hide();
           setState(() {
           });
         }

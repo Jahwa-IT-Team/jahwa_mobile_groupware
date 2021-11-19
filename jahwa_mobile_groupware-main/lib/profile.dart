@@ -246,7 +246,7 @@ class _ProfileWidgetState extends State<ProfileApp> {
                           child: Row(
                             children: <Widget>[
                               SizedBox(width: screenWidth * 0.02,),
-                              Icon(Icons.phone_android, color: Colors.blue),
+                              Icon(Icons.mail, color: Colors.blue),
                               SizedBox(width: screenWidth * 0.03,),
                               GestureDetector(
                                 onTap: (){

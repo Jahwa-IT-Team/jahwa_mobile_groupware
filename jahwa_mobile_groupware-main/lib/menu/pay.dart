@@ -1432,17 +1432,17 @@ class _PayWidgetState extends State<PayApp> {
       return await http.post(Uri.parse(url), body: json.encode(data), headers: {"Content-Type": "application/json"}).timeout(const Duration(seconds: 30)).then<bool>((http.Response response) async {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
+          await pr.show();
           if(jsonDecode(response.body)['Table'].length == 0) {
 
             payList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             payList.clear();
             jsonDecode(response.body)['Table'].forEach((element) {
               _selectedText = element["PROV_NAME"];
             });
-            await pr.hide();
           }
 
            pay_count = 0;
@@ -1452,7 +1452,7 @@ class _PayWidgetState extends State<PayApp> {
             payList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             payList.clear();
 
             Widget card = Card(
@@ -1510,7 +1510,7 @@ class _PayWidgetState extends State<PayApp> {
               payList.add(card);
               pay_count++;
             });
-            await pr.hide();
+
           }
 
           sub_count = 0;
@@ -1520,7 +1520,7 @@ class _PayWidgetState extends State<PayApp> {
             subList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             subList.clear();
 
             Widget card = Card(
@@ -1579,7 +1579,7 @@ class _PayWidgetState extends State<PayApp> {
               subList.add(card);
               sub_count++;
             });
-            await pr.hide();
+
           }
 
           ///총 계산내역
@@ -1587,14 +1587,14 @@ class _PayWidgetState extends State<PayApp> {
 
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table3'].forEach((element) {
               salary_day = element["PROV_DT"].substring(0, 10);
               pay_tot = money.format(element["PROV_TOT_AMT"]).toString();
               sub_tot = money.format(element["SUB_TOT_AMT"]).toString();
               real_tot = money.format(element["REAL_PROV_AMT"]).toString();
             });
-            await pr.hide();
+
           }
 
           ///파견인원 계산
@@ -1604,7 +1604,7 @@ class _PayWidgetState extends State<PayApp> {
             foreign_subList.clear();
           }
           else {
-            await pr.show(); /// 3. Progress Dialog Show - Need Declaration, Setting, Style
+            /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             foreign_payList.clear();
             foreign_subList.clear();
             dispatch_YN = 'Y';
@@ -2158,9 +2158,9 @@ class _PayWidgetState extends State<PayApp> {
               foreign_sub_count++;
 
             });
-            await pr.hide();
-          }
 
+          }
+          await pr.hide();
           setState(() {
           });
         }
