@@ -1436,6 +1436,11 @@ class _PayWidgetState extends State<PayApp> {
         if(response.statusCode != 200 || response.body == null || response.body == "{}" ){ showMessageBox(context, 'Alert', 'Server Info. Data Error !!!'); }
         else if(response.statusCode == 200){
           await pr.show();
+
+          salary_day = '';
+          pay_tot = '';
+          sub_tot = '';
+          real_tot = '';
           if(jsonDecode(response.body)['Table'].length == 0) {
 
             payList.clear();
