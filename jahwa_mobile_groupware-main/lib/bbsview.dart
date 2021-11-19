@@ -177,6 +177,9 @@ class _BbsViewWidgetState extends State<BbsViewApp> {
                           context: context,
                           removeTop: true,
                           child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: cardList,

@@ -361,6 +361,7 @@ class _PayWidgetState extends State<PayApp> {
                             child: ListView(
                               primary: false,
                               shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               children: ListTile.divideTiles(
                                 context: context,
                                 tiles: payList,
@@ -684,6 +685,7 @@ class _PayWidgetState extends State<PayApp> {
                           child: ListView(
                             primary: false,
                             shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: payList,
@@ -1040,6 +1042,7 @@ class _PayWidgetState extends State<PayApp> {
                           child: ListView(
                             primary: false,
                             shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             children: ListTile.divideTiles(
                               context: context,
                               tiles: foreign_payList,
