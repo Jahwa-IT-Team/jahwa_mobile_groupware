@@ -116,7 +116,7 @@ class _MenuWidgetState extends State<MenuApp> {
                                   child: Image.asset(menu[index].image),
                                   onTap: () {
                                     if(menu[index].name == "/Mail"){
-                                      launch("https://email.jahwa.co.kr/owa/auth/logon.aspx", forceWebView: false, forceSafariVC: true);
+                                      launch("https://email.jahwa.co.kr/owa/auth/logon.aspx", forceWebView: false, forceSafariVC: true, enableJavaScript: true);
                                     }
                                     else{
                                       Navigator.pushNamed(context, menu[index].name);
