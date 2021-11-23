@@ -76,6 +76,7 @@ flutter:
     - assets/image/help.png
     - assets/image/pay.png
     - assets/image/annual.png
+    - assets/image/mail.png
   # - assets/JHMobile.db
   # - images/a_dot_ham.jpeg
 

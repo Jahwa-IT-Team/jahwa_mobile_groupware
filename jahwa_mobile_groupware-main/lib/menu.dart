@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jahwa_mobile_groupware/util/common.dart';
 import 'package:jahwa_mobile_groupware/util/globals.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 ProgressDialog pr; /// 0. Progress Dialog Declaration
 
@@ -21,6 +22,7 @@ class _MenuWidgetState extends State<MenuApp> {
       MenuData("assets/image/approve.png", '전자결재', '/Document'),
       MenuData("assets/image/pay.png", '급여조회', '/Pay'),
       MenuData("assets/image/annual.png", '연차조회', '/Annual'),
+      MenuData("assets/image/mail.png", '웹 메일', '/Mail'),
     ];
 
     pr = ProgressDialog( /// 1. Progress Dialog Setting
@@ -104,7 +106,7 @@ class _MenuWidgetState extends State<MenuApp> {
                   child: GridView.count(
                     padding: EdgeInsets.all(10),
                     crossAxisCount: 3,
-                    children: List.generate(4, (index) {
+                    children: List.generate(5, (index) {
                       return Center(
                           child: Column(
                             children: <Widget>[
@@ -113,7 +115,13 @@ class _MenuWidgetState extends State<MenuApp> {
                                 child:GestureDetector(
                                   child: Image.asset(menu[index].image),
                                   onTap: () {
-                                    Navigator.pushNamed(context, menu[index].name);
+                                    if(menu[index].name == "/Mail"){
+                                      launch("https://email.jahwa.co.kr/owa/auth/logon.aspx", forceWebView: true, forceSafariVC: true);
+                                    }
+                                    else{
+                                      Navigator.pushNamed(context, menu[index].name);
+                                    }
+
                                   },
                                 )
                               ),
