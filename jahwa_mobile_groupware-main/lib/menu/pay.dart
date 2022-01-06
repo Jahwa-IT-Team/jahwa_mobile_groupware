@@ -36,6 +36,9 @@ class _PayWidgetState extends State<PayApp> {
   var pay_YN = 'N';    ///급여지급구분
   var bonus_YN = 'N';  ///상여지급구분
   var salary_day = ''; ///지급일
+  var tot_day = '' ; ///총일수
+  var wk_day = '';
+  var wk_time = '';
   var pay_tot = ''; ///지급총액
   var sub_tot = ''; ///공제총액
   var real_tot = ''; ///실지급액
@@ -50,10 +53,15 @@ class _PayWidgetState extends State<PayApp> {
   var foreign_local_tot = '';
   var foreign_kr_tot = '';
   var foreign_salary_day = '';
+  var dilig_hh = '';
+  var dilig_mm = '';
+  var dilig_time = '';
+  var gubun = '';
+  var cal_des = '';
 
   var year_month = DateTime.now().month < 11
-  ? DateTime.now().year.toString() + '-0' + (DateTime.now().month-1).toString()
-  : DateTime.now().year.toString() + '-' + (DateTime.now().month-1).toString();
+      ? DateTime.now().year.toString() + '-0' + (DateTime.now().month-1).toString()
+      : DateTime.now().year.toString() + '-' + (DateTime.now().month-1).toString();
 
   var year = DateTime.now().year;
   var month = DateTime.now().month -1 ;
@@ -62,11 +70,13 @@ class _PayWidgetState extends State<PayApp> {
   var sub_count = 0;
   var foreign_pay_count = 0;
   var foreign_sub_count = 0;
+  var cal_count = 0;
 
   List<Card> payList = [];
   List<Card> subList = [];
   List<Card> foreign_payList = [];
   List<Card> foreign_subList = [];
+  List<Card> calList = [];
 
   @override
   void initState() {
@@ -103,6 +113,12 @@ class _PayWidgetState extends State<PayApp> {
 
     var baseWidth = screenWidth * 0.65;
     if(baseWidth > 280) baseWidth = 280;
+
+    if(year_month == (DateTime.now().year.toString() + '-00')) {year_month = (DateTime.now().year-1).toString() + '-' + "12";}
+    if(month == 0) {
+      year = (DateTime.now().year-1);
+      month = 12;
+    }
 
     return GestureDetector(
       /// Keyboard UnFocus시를 위해 onTap에 GestureDetector를 위치시킴
@@ -241,7 +257,7 @@ class _PayWidgetState extends State<PayApp> {
                               blurRadius: 0,
                               // blur radius
                               offset:
-                                  Offset(0, 1), // changes position of shadow
+                              Offset(0, 1), // changes position of shadow
                             ),
                           ],
                         ),
@@ -249,9 +265,9 @@ class _PayWidgetState extends State<PayApp> {
                           value: _selectedKey,
                           items: _valueList
                               .map((data) => DropdownMenuItem<String>(
-                                    child: Text(data.value),
-                                    value: data.key,
-                                  ))
+                            child: Text(data.value),
+                            value: data.key,
+                          ))
                               .toList(),
                           isExpanded: true,
                           onChanged: (String value) {
@@ -268,330 +284,6 @@ class _PayWidgetState extends State<PayApp> {
                 ),
                 ///급여명세서
                 if(_selectedKey=="1") Container(
-                  width: screenWidth,
-                  margin: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10), //border corner radius
-                    boxShadow:[
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2), //color of shadow
-                        spreadRadius: 5, //spread radius
-                        blurRadius: 7, // blur radius
-                        offset: Offset(0, 2), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.03,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.05,
-                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${year}년 ${month}월 ${_selectedText}명세서',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.02,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.05,
-                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            '지급일 : ${salary_day}',
-                            style: TextStyle(
-                            fontSize: 15,
-                          ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.03,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.05,
-                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                topRight: Radius.circular(10.0)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                //color of shadow
-                                spreadRadius: 1,
-                                //spread radius
-                                blurRadius: 7,
-                                // blur radius
-                                offset:
-                                    Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            '지급내역',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Container(
-                          // Main Area
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.065 * pay_count,
-                          alignment: Alignment.topCenter,
-                          margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: MediaQuery.removePadding(
-                            context: context,
-                            removeTop: true,
-                            child: ListView(
-                              primary: false,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              children: ListTile.divideTiles(
-                                context: context,
-                                tiles: payList,
-                              ).toList(),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.01,
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.05,
-                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                topRight: Radius.circular(10.0)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                //color of shadow
-                                spreadRadius: 1,
-                                //spread radius
-                                blurRadius: 7,
-                                // blur radius
-                                offset:
-                                Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            '공제내역',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Container(
-                          // Main Area
-                          width: screenWidth,
-                          height: (screenHeight - statusBarHeight) * 0.065 * sub_count,
-                          alignment: Alignment.topCenter,
-                          margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                          child: MediaQuery.removePadding(
-                            context: context,
-                            removeTop: true,
-                            child: ListView(
-                              primary: false,
-                              shrinkWrap: true,
-                              children: ListTile.divideTiles(
-                                context: context,
-                                tiles: subList,
-                              ).toList(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                            width: screenWidth,
-                            height: (screenHeight - statusBarHeight) * 0.05,
-                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            alignment: Alignment.topLeft,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10), //border corner radius
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  //color of shadow
-                                  spreadRadius: 1,
-                                  //spread radius
-                                  blurRadius: 7,
-                                  // blur radius
-                                  offset:
-                                  Offset(0, 2), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  padding: EdgeInsets.all(5),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.0),
-                                        bottomLeft: Radius.circular(10.0)
-                                    ),
-                                  ),
-                                  child: Text(
-                                    ' ' + '지급총액',
-                                    style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${pay_tot}원',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            )
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.01,
-                        ),
-                        Container(
-                            width: screenWidth,
-                            height: (screenHeight - statusBarHeight) * 0.05,
-                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            alignment: Alignment.topLeft,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10), //border corner radius
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  //color of shadow
-                                  spreadRadius: 1,
-                                  //spread radius
-                                  blurRadius: 7,
-                                  // blur radius
-                                  offset:
-                                  Offset(0, 2), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  padding: EdgeInsets.all(5),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.0),
-                                        bottomLeft: Radius.circular(10.0)
-                                    ),
-                                  ),
-                                  child: Text(
-                                    ' ' + '공제총액',
-                                    style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${sub_tot}원',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            )
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.01,
-                        ),
-                        Container(
-                            width: screenWidth,
-                            height: (screenHeight - statusBarHeight) * 0.05,
-                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            alignment: Alignment.topLeft,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10), //border corner radius
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  //color of shadow
-                                  spreadRadius: 1,
-                                  //spread radius
-                                  blurRadius: 7,
-                                  // blur radius
-                                  offset:
-                                  Offset(0, 2), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  padding: EdgeInsets.all(5),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.0),
-                                        bottomLeft: Radius.circular(10.0)
-                                    ),
-                                  ),
-                                  child: Text(
-                                    ' ' + '실지급액',
-                                    style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
-                                  ),
-                                ),
-                                Container(
-                                  height: (screenHeight - statusBarHeight) * 0.05,
-                                  width: screenWidth * 0.4,
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${real_tot}원',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            )
-                        ),
-                        SizedBox(
-                          height: (screenHeight - statusBarHeight) * 0.02,
-                        ),
-                      ],
-                    ),
-                  ),
-                ///상여명세서
-                if(_selectedKey != "1") Container(
                   width: screenWidth,
                   margin: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
@@ -639,8 +331,22 @@ class _PayWidgetState extends State<PayApp> {
                           ),
                         ),
                       ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '총일수: ${tot_day}일 '
+                              '실근무일수: ${wk_day}일 '
+                              '총근무시간: ${wk_time}시간',
+                          style: TextStyle(
+                            fontSize: 13.5,
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                        height: (screenHeight - statusBarHeight) * 0.03,
+                        height: (screenHeight - statusBarHeight) * 0.01,
                       ),
                       Container(
                         width: screenWidth,
@@ -676,7 +382,7 @@ class _PayWidgetState extends State<PayApp> {
                       Container(
                         // Main Area
                         width: screenWidth,
-                        height: (screenHeight - statusBarHeight) * 0.065 * pay_count,
+                        height: (screenHeight - statusBarHeight) * 0.07 * pay_count,
                         alignment: Alignment.topCenter,
                         margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
                         child: MediaQuery.removePadding(
@@ -908,12 +614,452 @@ class _PayWidgetState extends State<PayApp> {
                             ],
                           )
                       ),
+                      //산출내역
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.03,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              topRight: Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              //color of shadow
+                              spreadRadius: 1,
+                              //spread radius
+                              blurRadius: 7,
+                              // blur radius
+                              offset:
+                              Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '산출내역',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Container(
+                        // Main Area
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.065 * cal_count,
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
+                            children: ListTile.divideTiles(
+                              context: context,
+                              tiles: calList,
+                            ).toList(),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: (screenHeight - statusBarHeight) * 0.02,
                       ),
                     ],
                   ),
                 ),
+                ///상여명세서
+                if(_selectedKey != "1") Container(
+                  width: screenWidth,
+                  margin: EdgeInsets.all(10),
+                  alignment: Alignment.topLeft,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10), //border corner radius
+                    boxShadow:[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2), //color of shadow
+                        spreadRadius: 5, //spread radius
+                        blurRadius: 7, // blur radius
+                        offset: Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.03,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${year}년 ${month}월 ${_selectedText}명세서',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.02,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '지급일 : ${salary_day}',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '총일수: ${tot_day}일 '
+                              '실근무일수: ${wk_day}일 '
+                              '총근무시간: ${wk_time}시간',
+                          style: TextStyle(
+                            fontSize: 13.5,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.03,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              topRight: Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              //color of shadow
+                              spreadRadius: 1,
+                              //spread radius
+                              blurRadius: 7,
+                              // blur radius
+                              offset:
+                              Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '지급내역',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Container(
+                        // Main Area
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.065 * pay_count,
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            children: ListTile.divideTiles(
+                              context: context,
+                              tiles: payList,
+                            ).toList(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.01,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              topRight: Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              //color of shadow
+                              spreadRadius: 1,
+                              //spread radius
+                              blurRadius: 7,
+                              // blur radius
+                              offset:
+                              Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '공제내역',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Container(
+                        // Main Area
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.065 * sub_count,
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
+                            children: ListTile.divideTiles(
+                              context: context,
+                              tiles: subList,
+                            ).toList(),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        alignment: Alignment.topLeft,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10), //border corner radius
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              //color of shadow
+                              spreadRadius: 1,
+                              //spread radius
+                              blurRadius: 7,
+                              // blur radius
+                              offset:
+                              Offset(0, 2), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              height: (screenHeight - statusBarHeight) * 0.05,
+                              width: screenWidth * 0.4,
+                              padding: EdgeInsets.all(5),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(10.0)
+                                ),
+                              ),
+                              child: Text(
+                                ' ' + '지급총액',
+                                style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            Container(
+                              height: (screenHeight - statusBarHeight) * 0.05,
+                              width: screenWidth * 0.4,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                '${pay_tot}원',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.01,
+                      ),
+                      Container(
+                          width: screenWidth,
+                          height: (screenHeight - statusBarHeight) * 0.05,
+                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10), //border corner radius
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                //color of shadow
+                                spreadRadius: 1,
+                                //spread radius
+                                blurRadius: 7,
+                                // blur radius
+                                offset:
+                                Offset(0, 2), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: (screenHeight - statusBarHeight) * 0.05,
+                                width: screenWidth * 0.4,
+                                padding: EdgeInsets.all(5),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.0),
+                                      bottomLeft: Radius.circular(10.0)
+                                  ),
+                                ),
+                                child: Text(
+                                  ' ' + '공제총액',
+                                  style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                              Container(
+                                height: (screenHeight - statusBarHeight) * 0.05,
+                                width: screenWidth * 0.4,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '${sub_tot}원',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.01,
+                      ),
+                      Container(
+                          width: screenWidth,
+                          height: (screenHeight - statusBarHeight) * 0.05,
+                          margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10), //border corner radius
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                //color of shadow
+                                spreadRadius: 1,
+                                //spread radius
+                                blurRadius: 7,
+                                // blur radius
+                                offset:
+                                Offset(0, 2), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height: (screenHeight - statusBarHeight) * 0.05,
+                                width: screenWidth * 0.4,
+                                padding: EdgeInsets.all(5),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.0),
+                                      bottomLeft: Radius.circular(10.0)
+                                  ),
+                                ),
+                                child: Text(
+                                  ' ' + '실지급액',
+                                  style: TextStyle(fontSize: 17,color: Colors.white, fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                              Container(
+                                height: (screenHeight - statusBarHeight) * 0.05,
+                                width: screenWidth * 0.4,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '${real_tot}원',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      SizedBox(
+                        height: (screenHeight - statusBarHeight) * 0.02,
+                      ),
+                      Container(
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        margin: EdgeInsets.fromLTRB(10,0,10,0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              topRight: Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: Offset(0,2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '산출내역',
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Container(
+                        //Main Area
+                        width: screenWidth,
+                        height: (screenHeight - statusBarHeight) * 0.065 * cal_count,
+                        alignment: Alignment.topCenter,
+                        margin: EdgeInsets.fromLTRB(10,0,10,0),
+                        child: MediaQuery.removePadding(
+                            context: context,
+                            removeTop: true,
+                            child: ListView(
+                              primary: false,
+                              shrinkWrap: true,
+                              children: ListTile.divideTiles(
+                                context: context,
+                                tiles: calList,
+                              ).toList(),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+
+
                 ///파견급여명세서
                 if(dispatch_YN == "Y") Container(
                   width: screenWidth,
@@ -1023,7 +1169,7 @@ class _PayWidgetState extends State<PayApp> {
                           ],
                         ),
                         child: Text(
-                          '지급내역',
+                          '지급내역3',
                           style: TextStyle(
                               fontSize: 17,
                               color: Colors.white,
@@ -1427,7 +1573,7 @@ class _PayWidgetState extends State<PayApp> {
   Future<void> getJSONData() async {
     try {
       // Login API Url
-      var url = 'https://jhapi.jahwa.co.kr/SalaryInfo';
+      var url = 'https://jhapi.jahwa.co.kr/SalaryInfoTest';
 
       // Send Parameter
       var data = {'EntCode': '${session['EntCode']}', 'EmpCode' : '${session['EmpCode']}', 'PAY_YYMM' : '${year_month.replaceAll('-', '')}', 'Type' : '${_selectedKey}'};
@@ -1438,6 +1584,9 @@ class _PayWidgetState extends State<PayApp> {
           await pr.show();
 
           salary_day = '';
+          tot_day = '';
+          wk_day = '';
+          wk_time = '';
           pay_tot = '';
           sub_tot = '';
           real_tot = '';
@@ -1453,7 +1602,7 @@ class _PayWidgetState extends State<PayApp> {
             });
           }
 
-           pay_count = 0;
+          pay_count = 0;
           ///지급내역
           if(jsonDecode(response.body)['Table1'].length == 0) {
 
@@ -1476,11 +1625,20 @@ class _PayWidgetState extends State<PayApp> {
                     ),
                   ),
                   Container(
-                    width: screenWidth * 0.4,
+                    width: screenWidth * 0.25,
                     height: (screenHeight - statusBarHeight) * 0.05,
                     alignment: Alignment.centerRight,
                     child: Text(
                       '금액',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    width: screenWidth * 0.18,
+                    height: (screenHeight - statusBarHeight) * 0.05,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '시간',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -1491,12 +1649,15 @@ class _PayWidgetState extends State<PayApp> {
             payList.add(card);
 
             jsonDecode(response.body)['Table1'].forEach((element) {
+              dilig_hh = element["DILIG_HH"].toString();
+              dilig_mm = element["DILIG_MM"].toString();
+
               Widget card = Card(
                 child: Row(
                   children: <Widget> [
                     Container(
                       width: screenWidth * 0.4,
-                      height: (screenHeight - statusBarHeight) * 0.05,
+                      height: (screenHeight - statusBarHeight) * 0.06,
                       alignment: Alignment.center,
                       child: Text(
                         '${element["ALLOW_NM"]}',
@@ -1504,7 +1665,7 @@ class _PayWidgetState extends State<PayApp> {
                       ),
                     ),
                     Container(
-                      width: screenWidth * 0.4,
+                      width: screenWidth * 0.25,
                       height: (screenHeight - statusBarHeight) * 0.05,
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -1512,6 +1673,17 @@ class _PayWidgetState extends State<PayApp> {
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
+                    SizedBox(width: (screenWidth*0.2) * 0.2,),
+                    if(((dilig_hh != '') & (dilig_mm != '')))
+                      Container(
+                        width: screenWidth * 0.18,
+                        height: (screenHeight - statusBarHeight) * 0.05,
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${dilig_hh}H ${dilig_mm}M',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ),
                   ],
                 ),
               );
@@ -1598,15 +1770,86 @@ class _PayWidgetState extends State<PayApp> {
             /// 3. Progress Dialog Show - Need Declaration, Setting, Style
             jsonDecode(response.body)['Table3'].forEach((element) {
               salary_day = element["PROV_DT"].substring(0, 10);
+              wk_day = (element["WK_DAY"].floor()).toString();
+              tot_day = (element["TOT_DAY"].floor()).toString();
+              wk_time = (element["WK_TIME"].floor()).toString();
               pay_tot = money.format(element["PROV_TOT_AMT"]).toString();
               sub_tot = money.format(element["SUB_TOT_AMT"]).toString();
               real_tot = money.format(element["REAL_PROV_AMT"]).toString();
             });
 
           }
+          ///card List 길이 초기화
+          cal_count = 0;
+          ///산출내역 조회
+          if(jsonDecode(response.body)['Table4'].length == 0 ){
+            calList.clear();
+          }
+          else{
+
+            calList.clear();
+
+            Widget card = Card(
+              child: Row(
+                children: <Widget> [
+                  Container(
+                    width: screenWidth * 0.3,
+                    height: (screenHeight - statusBarHeight) * 0.05,
+                    alignment: Alignment.center,
+                    child: Text(
+                      '구분',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    width: screenWidth * 0.45,
+                    height: (screenHeight - statusBarHeight) * 0.05,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '산출식 또는 산출방법',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+            calList.add(card);
+            cal_count++;
+
+            jsonDecode(response.body)['Table4'].forEach((element) {
+              Widget card = Card(
+                child: Row(
+                  children: <Widget> [
+                    Container(
+                      width: screenWidth * 0.3,
+                      height: (screenHeight - statusBarHeight) * 0.05,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${element["GUBUN"]}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    Container(
+                      width: screenWidth * 0.5,
+                      height: (screenHeight - statusBarHeight) * 0.05,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${element["CAL_DES"]}',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+              calList.add(card);
+              cal_count++;
+            });
+
+          }
 
           ///파견인원 계산
-          if(jsonDecode(response.body)['Table4'].length == 0) {
+          if(jsonDecode(response.body)['Table5'].length == 0) {
             dispatch_YN = 'N';
             foreign_payList.clear();
             foreign_subList.clear();
@@ -1616,7 +1859,7 @@ class _PayWidgetState extends State<PayApp> {
             foreign_payList.clear();
             foreign_subList.clear();
             dispatch_YN = 'Y';
-            jsonDecode(response.body)['Table4'].forEach((element) {
+            jsonDecode(response.body)['Table5'].forEach((element) {
               to_company = element["TO_COMPANY_NM"];
               fr_dt = element["FR_DT"].substring(0, 10);
               to_dt = element["TO_DT"].substring(0, 10);
