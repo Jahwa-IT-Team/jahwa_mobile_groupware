@@ -1573,7 +1573,7 @@ class _PayWidgetState extends State<PayApp> {
   Future<void> getJSONData() async {
     try {
       // Login API Url
-      var url = 'https://jhapi.jahwa.co.kr/SalaryInfoTest';
+      var url = 'https://jhapi.jahwa.co.kr/SalaryInfo';
 
       // Send Parameter
       var data = {'EntCode': '${session['EntCode']}', 'EmpCode' : '${session['EmpCode']}', 'PAY_YYMM' : '${year_month.replaceAll('-', '')}', 'Type' : '${_selectedKey}'};
